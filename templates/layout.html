@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>7 Keys |  Model N</title>
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-responsive.css">-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/datepicker/css/datepicker.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+
+    <script src="/static/bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="/static/js/app.js"></script>
+
+
+    <script type="text/javascript">
+
+    </script>
+
+</head>
+<body ng-app="keys">
+
+<div class="container-fluid" style="font-family: 'Open Sans', sans-serif;padding:0px;background:#191919;padding:0">
+
+   <div class="row-fluid" style="border0;margin:0;padding:0;background:#191919;">
+
+        <div class="col-md-1" style="">
+
+        </div>
+
+        <div class="col-md-10" style="background:#191919;padding:6px 0px 6px 0px;border-bottom:solid 0px #f2f2f2;background:#191919">
+
+
+        <table style="width:100%;">
+
+            <tr>
+
+                <td>
+                    <a href="/" style="text-decoration:none">
+                    <font style="font-size:22px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
+                    <font style="font-size:22px;;color:#0cadb7" >7 Keys</font>
+                    </a>
+                </td>
+
+                <td align="right">
+
+                    {% if current_user.is_authenticated() == True and current_user.is_admin() == True %}
+
+                    <a href="/admin" style="font-size:12px;color:white"><i style="color:white" class="fa fa-gear"></i> Admin</a>
+                    {% endif %}
+
+                    &nbsp;&nbsp;
+
+                    {% if current_user.is_authenticated() == True %}
+
+                    <a href="/logout" style="font-size:12px;color:white"><i style="color:white" class="fa fa-sign-out"></i> Logout</a>
+                    {% endif %}
+
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        </div>
+
+
+        <div class="col-md-1">
+
+        </div>
+
+    </div>
+
+</div>
+
+<div style="height:5px;background:#f2f2f2">
+
+       </div>
+
+
+<div class="container-fluid"
+     style="font-family: 'Open Sans', sans-serif;padding:0px;border-top:solid 0px #c">
+
+    <div class="row-fluid" style="border-bottom:solid 0px black;padding:0">
+
+        <div class="col-md-1" style="">
+
+        </div>
+
+        <div class="col-md-10" style="min-height:1000px; background:#;padding:6px 0px 6px 0px">
+
+            {% block content %}
+            {% endblock %}
+
+
+        </div>
+
+        <div class="col-md-1">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="error"></div>
+
+
+</body>
+</html>

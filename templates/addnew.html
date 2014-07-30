@@ -1,0 +1,253 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style type="text/css">
+    textarea{
+    font-size:12px;
+    padding:10px;
+    border:solid 1px #f2f2f2;
+    width:400px;
+    }
+
+    td{
+    font-family:'ws';
+    padding-left:0px;
+    padding-right:0px;
+    border-top:0px;
+    }
+
+    tr{
+    border-top:0px;
+    }
+
+    input{
+    border:solid 1px #f2f2f2;
+    padding:2px;
+    }
+
+    .table>tbody>tr>td{
+
+    }
+</style>
+
+<input type="hidden" id="uid" value="{{current_user.id}}"/>
+<input type="hidden" id="fid" value="{{form.id}}"/>
+
+<div ng-controller="formController">
+
+<div>
+
+    <div>
+
+
+    </div>
+    <table style="width:100%">
+
+        <tr style="margin-bottom:6px;width:50%">
+            <td>
+
+                <div class="dropdown" >
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" style="border:0px;background:#ecf0f2;border-radius:0px">
+                        <font style="font-weight:bold;font-size:18px" class="headerf">||prsn||</font>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation" ng-repeat="pr in p"><a role="menuitem" tabindex="-1" href="#" ng-click="selProj(pr.id,pr.name)">||pr.name||</a></li>
+                    </ul>
+                </div>
+                <!--<h4 style="font-weight:bold;font-size:22px" class="headerf">||projectname||</h4>-->
+            </td>
+
+            <td align="left" style="width:50%">
+
+                <table style="border-radius:4px;border:solid 1px #f2f2f2">
+                    <tr>
+
+
+                        <td id="7keystab" class="app_form_tab_active" ng-click="tabShift('7keys')"><i
+                                class="fa fa-key"></i> 7 Keys
+                        </td>
+                        <td id="issuestab" class="app_form_tab" ng-click="tabShift('issues')"><i
+                                class="fa fa-exclamation"></i> Issues / Risks
+                        </td>
+                        <td id="milestonestab" class="app_form_tab" ng-click="tabShift('milestones')"><i
+                                class="fa fa-road"></i> Milestones
+                        </td>
+                        <td id="financialstab" class="app_form_tab" ng-click="tabShift('financials')"><i
+                                class="fa fa-list"></i> Account Info
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+
+
+            <td align="right" class=""><input align="center" placeholder="Report Date" class="datepicker" style="width:100px;border-radius:0px;font-weight:bold" type="text"/></td>
+
+            <td style="" align="right">
+
+               <!--Status: Draft&nbsp;&nbsp;&nbsp;&nbsp; -->
+               <i class="fa fa-cloud-upload"></i> Submit &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-save"></i> Save As
+
+            </td>
+
+        </tr>
+
+
+
+    </table>
+
+</div>
+
+<hr>
+
+
+<div style="padding:0px;" id="7keys" class="app_form_tab_div">
+
+
+    <table class="table table-striped" style="width:100%;border:0">
+
+
+        <tr ng-repeat="k in ks">
+
+            <td style="width:33%;vertical-align:middle;font-size:16px">||k.keyfname||
+
+            <i tooltip style="font-size:12px" class="fa fa-question" data-toggle="tooltip" data-placement="right" title="k.keyfname"></i>
+            </td>
+
+            <td align="center" style="vertical-align:middle;font-size:24px;">
+
+
+                <div>
+                <i class="fa fa-circle-o" ng-show="k.kival!=1" id="key||k.kiid||1" ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:#F0EEEE;"></i>
+                <i class="fa fa-circle-o" ng-show="k.kival==1" id="key||k.kiid||1" ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:red;"></i>
+                </div>
+                <font style="font-size:12px">Red</font>
+            </td>
+
+            <td align="center" style="vertical-align:middle;font-size:24px;">
+                <div>
+                <i class="fa fa-circle-o" ng-show="k.kival!=2" id="key||k.kiid||2" ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#F0EEEE;"></i>
+                <i class="fa fa-circle-o" ng-show="k.kival==2" id="key||k.kiid||2" ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#FFBF00;"></i>
+                </div>
+                <font style="font-size:12px">Yellow</font>
+           </td>
+
+            <td align="center" style="vertical-align:middle;font-size:24px;">
+                 <div>
+                <i class="fa fa-circle-o" ng-show="k.kival!=3" id="key||k.kiid||3" ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:#F0EEEE;"></i>
+                <i class="fa fa-circle-o" ng-show="k.kival==3" id="key||k.kiid||3" ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:green;"></i>
+                </div>
+                <font style="font-size:12px">Green</font>
+            </td>
+
+            <td align="right" style="vertical-align:middle;font-size:16px">
+
+                <textarea ng-blur="saveComment(k.kiid)" id="||k.kiid||com" placeholder="Brief reason / update on yellow / red status">||k.keycom||</textarea>
+
+            </td>
+
+        </tr>
+
+
+    </table>
+
+
+</div>
+
+<div style="padding:0px;display:none" id="issues" class="app_form_tab_div">
+
+    <table class="table table-striped">
+
+        <thead>
+        <tr>
+        <td>Issue Descr</td>
+        <td>Priority</td>
+        <td>Action</td>
+        <td>Owner</td>
+        <td>Resolution Date</td>
+        <td></td>
+        </tr>
+        </thead>
+
+     <tr ng-repeat="is in isrl">
+         <td><input type="text" id="d||is.isrid||" value="||is.descr||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="p||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="a||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="o||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="r||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+
+
+         <td><i style="color:red" class="fa fa-times-circle"></i> </td>
+     </tr>
+
+
+    </table>
+
+    <div class="btn btn-sm btn-info" ng-click="addIssueRecord()">Add Record</div>
+
+</div>
+
+<div style="padding:0px;display:none" id="milestones" class="app_form_tab_div">
+
+    <table class="table table-striped">
+
+        <thead>
+        <tr>
+        <td>Description</td>
+        <td>Baseline</td>
+        <td>Current</td>
+        <td>Plan %</td>
+        <td>Actual %</td>
+        <td>Comments</td>
+        </tr>
+        </thead>
+
+     <tr ng-repeat="is in isrl">
+         <td><input type="text" id="d||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="p||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="a||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="o||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+         <td><input type="text" id="r||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+
+
+         <td><i style="color:red" class="fa fa-times-circle"></i> </td>
+     </tr>
+
+
+    </table>
+
+    <div class="btn btn-sm btn-info" ng-click="addIssueRecord()">Add Record</div>
+
+
+</div>
+
+<div style="padding:0px;display:none" id="financials" class="app_form_tab_div">
+
+
+    <table>
+
+        <tr>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+        </tr>
+
+    </table>
+
+
+</div>
+<script type="text/javascript">
+    $('.datepicker').datepicker();
+
+</script>
+
+
+
+</div>
+{% endblock %}

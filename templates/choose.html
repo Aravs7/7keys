@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<input type="hidden" id="uid" value="{{current_user.id}}"/>
+<div ng-controller="choosePcontroller">
+
+    <table>
+        <tr ng-repeat="pr in p">
+            <td><h4>||pr.name||</h4></td>
+            <td><a style="background:#045fb4;color:white" href="/create/||pr.id||" class="btn btn-sm">Create report</a></td>
+        </tr>
+    </table>
+
+</div>
+
+        {% endblock %}
