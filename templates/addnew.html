@@ -160,39 +160,60 @@
             <td align="center" style="vertical-align:middle;font-size:24px;">
 
 
-                <div>
+                <div ng-show="k.keyname != 'lws'">
                     <i class="fa fa-circle-o" ng-show="k.kival!=1" id="key||k.kiid||1"
                        ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:#F0EEEE;"></i>
                     <i class="fa fa-circle-o" ng-show="k.kival==1" id="key||k.kiid||1"
                        ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:red;"></i>
                 </div>
+
+                <div ng-show="k.keyname == 'lws'">
+                    <i class="fa fa-circle-o" ng-show="k.kival!=1" id="key||k.kiid||1"
+                        style="color:#F0EEEE;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival==1" id="key||k.kiid||1"
+                        style="color:red;"></i>
+                </div>
                 <font style="font-size:12px">Red</font>
             </td>
 
             <td align="center" style="vertical-align:middle;font-size:24px;">
-                <div>
+                <div ng-show="k.keyname != 'lws'">
                     <i class="fa fa-circle-o" ng-show="k.kival!=2" id="key||k.kiid||2"
                        ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#F0EEEE;"></i>
                     <i class="fa fa-circle-o" ng-show="k.kival==2" id="key||k.kiid||2"
                        ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#FFBF00;"></i>
                 </div>
+                <div ng-show="k.keyname == 'lws'">
+                    <i class="fa fa-circle-o" ng-show="k.kival!=2" id="key||k.kiid||2"
+                        style="color:#F0EEEE;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival==2" id="key||k.kiid||2"
+                        style="color:#FFBF00;"></i>
+                </div>
                 <font style="font-size:12px">Yellow</font>
             </td>
 
             <td align="center" style="vertical-align:middle;font-size:24px;">
-                <div>
+                <div ng-show="k.keyname != 'lws'">
                     <i class="fa fa-circle-o" ng-show="k.kival!=3" id="key||k.kiid||3"
                        ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:#F0EEEE;"></i>
                     <i class="fa fa-circle-o" ng-show="k.kival==3" id="key||k.kiid||3"
                        ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:green;"></i>
+                </div>
+                 <div ng-show="k.keyname == 'lws'">
+                    <i class="fa fa-circle-o" ng-show="k.kival!=3" id="key||k.kiid||3"
+                        style="color:#F0EEEE;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival==3" id="key||k.kiid||3"
+                        style="color:green;"></i>
                 </div>
                 <font style="font-size:12px">Green</font>
             </td>
 
             <td align="right" style="vertical-align:middle;font-size:16px">
 
-                <textarea ng-blur="saveComment(k.kiid)" id="||k.kiid||com"
+                <textarea ng-show="k.keyname != 'lws'" ng-blur="saveComment(k.kiid)" id="||k.kiid||com"
                           placeholder="Brief reason / update on yellow / red status">||k.keycom||</textarea>
+                 <div ng-show="k.keyname == 'lws'"  id="||k.kiid||com"
+                           disabled>||k.keycom||</div>
 
             </td>
 

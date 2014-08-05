@@ -95,9 +95,40 @@ def register(name,uname,pwd):
 @app.route('/createform')
 def createform():
     pr = Project.select().order_by(Project.id.desc()).get()
-    form = Form.create(formstatus = "DRAFT",createdby = login.current_user.id, reportdate = date.today(), project = pr)
-    for k in Key.select():
-        keyins = Keyinstance.create(keyid=k.id,formid=form.id)
+
+    recformexists = 0
+    form=""
+
+    #get the most recent form if available
+    if Form.select().where(Form.createdby == login.current_user.id).exists():
+        recformexists = 1
+        recform = Form.select().where(Form.createdby == login.current_user.id).order_by(Form.id.desc()).get()
+
+
+    if recformexists == 0:
+        form = Form.create(formstatus = "DRAFT",createdby = login.current_user.id, reportdate = date.today(), project = pr)
+        for k in Key.select():
+                keyins = Keyinstance.create(keyid=k.id,formid=form.id)
+    else:
+        form = Form.create(project = recform.project,formstatus = 'DRAFT',createdby=login.current_user.id, reportdate = date.today())
+        # clone key instances
+        if Keyinstance.select().where(Keyinstance.formid == recform.id).exists():
+            prevweekstatus="null"
+            prevweekcomments="null"
+            for ki in Keyinstance.select().where(Keyinstance.formid == recform.id):
+                Keyinstance.create(keyid=ki.keyid,formid=form.id,keyval=ki.keyval,keycomments=ki.keycomments)
+
+            newki = Keyinstance.select().where(Keyinstance.formid == form.id, Keyinstance.keyid == 1).get()
+            prevki = Keyinstance.select().where(Keyinstance.formid == recform.id, Keyinstance.keyid == 2).get()
+            newki.keyval = prevki.keyval
+            newki.keycomments = prevki.keycomments
+            newki.save()
+
+
+
+
+
+
     return str(form.id)
 
 

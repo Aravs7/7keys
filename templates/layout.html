@@ -46,18 +46,34 @@
             <tr>
 
                 <td>
-                    <a href="/" style="text-decoration:none">
+
+
+                    {% if current_user.is_authenticated() == True and current_user.is_admin() == True %}
+
+
+                     <a href="/admin" style="text-decoration:none">
                     <font style="font-size:22px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
                     <font style="font-size:22px;;color:#0cadb7" >7 Keys</font>
                     </a>
+
+                    {% endif %}
+
+                    {% if current_user.is_authenticated() == True and current_user.is_admin() == False %}
+
+
+                     <a href="/" style="text-decoration:none">
+                    <font style="font-size:22px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
+                    <font style="font-size:22px;;color:#0cadb7" >7 Keys</font>
+                    </a>
+
+                    {% endif %}
+
+
                 </td>
 
                 <td align="right">
 
-                    {% if current_user.is_authenticated() == True and current_user.is_admin() == True %}
 
-                    <a href="/admin" style="font-size:12px;color:white"><i style="color:white" class="fa fa-gear"></i> Admin</a>
-                    {% endif %}
 
                     &nbsp;&nbsp;
 
