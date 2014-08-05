@@ -401,8 +401,11 @@ $scope.loginUser=function(){
 var l = $http.get("/loginu/"+$('#login-uname').val()+"/"+$('#login-pwd').val());
 
 l.success(function(data, status, headers, config) {
-    if(data=="success")
+
+    if(data=="MGR")
     window.location.replace("/app");
+    else if(data=='ADM')
+    window.location.replace("/admin");
     else
     alert(data);
 });

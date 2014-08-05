@@ -71,8 +71,8 @@ def admin():
 def loginu(uid, pwd):
     if User.select().where(User.email==uid, User.password==pwd).exists():
         login.login_user(User.select().where(User.email==uid).get())
-        return "success"
-    return "Wrong userid/password. Please ask Aravind."
+        return login.current_user.type
+    return "Wrong userid/password"
 
 @app.route("/logout")
 @login_required
