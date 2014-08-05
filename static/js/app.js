@@ -197,7 +197,12 @@ keysapp.directive('tooltip', function($compile) {
     },
     source: [
               {value: 'Inception', text: 'Inception'},
-              {value: 'Elaboration', text: 'Elaboration'}
+              {value: 'Elaboration', text: 'Elaboration'},
+              {value: 'Construction', text: 'Construction'},
+              {value: 'Verification', text: 'Verification'},
+              {value: 'Transition', text: 'Transition'},
+              {value: 'Support', text: 'Support'}
+
            ],
     defaultValue:'Inception'
 
@@ -420,6 +425,45 @@ $("#error").html(data);
 
 
 keysapp.controller('formController',function($scope,$http){
+
+$scope.submitReport=function(){
+
+var fid = $('#fid').val();
+
+console.log(fid);
+
+$scope.formstatus="";
+
+var reps = $http.get("/submitReport/"+fid);
+
+reps.success(function(data, status, headers, config) {
+console.log(data);
+$scope.formstatus="SUBMITTED";
+});
+
+reps.error(function(data, status, headers, config) {
+    $("#error").html(data);
+});
+
+};
+
+
+
+$scope.getFormStatus=function(){
+
+var reps = $http.get("/getFormStatus/"+$('#fid').val());
+
+reps.success(function(data, status, headers, config) {
+$scope.formstatus=data;
+});
+
+reps.error(function(data, status, headers, config) {
+    $("#error").html(data);
+});
+
+};
+
+$scope.getFormStatus();
 
 $scope.saveReportDate= function(m,d,y){
 
@@ -894,7 +938,7 @@ var addp = $http.get("/addProject");
 
 addp.success(function(data, status, headers, config) {
 console.log(data);
-location.reload();
+$scope.loadAdminProjects();
 });
 
 addp.error(function(data, status, headers, config) {

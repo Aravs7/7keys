@@ -112,7 +112,9 @@
             <td style="" align="right">
 
                 <!--Status: Draft&nbsp;&nbsp;&nbsp;&nbsp; -->
-                <i class="fa fa-cloud-upload"></i> Submit
+
+                <span ng-show="formstatus != 'SUBMITTED'" class="btn btn-sm btn-info" ng-click="submitReport()" style="font-family:'ws'">&nbsp;Submit</span>
+                <span class=" " ng-show="formstatus == 'SUBMITTED'" ng-click="submitReport()" style="font-family:'ws'">&nbsp;Submitted</span>
                 <!--&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-save"></i> Save As-->
 
             </td>
@@ -153,7 +155,7 @@
 
             <td style="width:33%;vertical-align:middle;font-size:16px">||k.keyfname||
 
-                <i tooltip style="font-size:16px" class="fa fa-question" data-toggle="popover" data-placement="right"
+                <i tooltip ng-show="k.keyname != 'lws'" style="font-size:13px" class="fa fa-question" data-toggle="popover" data-placement="right"
                    val="||k.keyldescr||"></i>
             </td>
 
@@ -229,7 +231,7 @@
 
     <div class="alert alert-info" role="alert" style="font-size:12px;padding:8px;border-radius:0">
         Include here the key risks and issues on a program level only. This should not exceed 5 key issues / risks
-        <i class="fa fa-times" style="float:right"></i>
+
     </div>
 
     <table class="table table-striped">
@@ -308,7 +310,7 @@
     <div class="alert alert-info" role="alert" style="font-size:12px;padding:8px;border-radius:0">
         Milestones should represent a high-level Gantt chart. This should include the 5 major project phases + other key
         project milestones OR the key build schedule for support.
-        <i class="fa fa-times" style="float:right"></i>
+
     </div>
 
     <table class="table table-striped">
@@ -342,9 +344,21 @@
                 </div>
             </td>
             <td >
-                <input style="width:100px" type="text" ng-model="ms.original" id="o||ms.mstid||" ng-blur="updateMilestoneRec(ms.mstid)"/>%
+                <!--<input style="width:100px" type="text" ng-model="ms.original" id="o||ms.mstid||" ng-blur="updateMilestoneRec(ms.mstid)" datepicker/>-->
 
             <!--<br>-->
+
+                 <div class="dtp input-append date" data-date="||today||" data-date-format="mm-dd-yyyy" isid="||ms.mstid||" type="milestone" field="planneddate" cval="||ms.planneddate||" datepicker>
+                <table>
+                        <tr>
+
+                            <td><input class="span2" size="16" type="text"
+                                       /></td>
+                            <td style="padding-left:4px"><span class="add-on" style=""><i
+                                    class="fa fa-calendar"></i></span></td>
+                        </tr>
+                    </table>
+                </div>
 
 
 

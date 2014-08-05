@@ -337,11 +337,27 @@ def getAdminReports():
         ref= str(f.reportdate).split('-')
         ref = ref[1]+'-'+ref[2]+"-"+ref[0]
         pr = Project.select().where(Project.id == f.project).get()
-        flist.append({"fid":f.id,"pid":pr.id,"pname":pr.pname,"status":kyi.keyval,"date":ref,"formstatus":f.formstatus})
+        ua = Useracc.select().where(Useracc.projectid == pr.id).get()
+        u = User.select().where(User.id == ua.userid).get()
+        icount = Issue.select().where(Issue.formid == f.id).count()
+        mcount = Milestone.select().where(Milestone.formid == f.id).count()
+        flist.append({"fid":f.id,"pid":pr.id,"pname":pr.pname,"status":kyi.keyval,"date":ref,"formstatus":f.formstatus,"manager":u.name,"icount":icount,"mcount":mcount})
 
     return json.dumps(flist)
 
 
+
+@app.route('/submitReport/<fid>')
+def submitReport(fid):
+    f = Form.select().where(Form.id == fid).get()
+    f.formstatus = 'SUBMITTED'
+    f.save()
+    return 'suc'
+
+@app.route('/getFormStatus/<fid>')
+def getFormStatus(fid):
+    f = Form.select().where(Form.id == fid).get()
+    return f.formstatus
 
 
 

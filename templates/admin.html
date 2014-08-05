@@ -4,7 +4,7 @@
 <style type="text/css">
 
     td{
-    font-weight:bold;
+
     font-family:'ws';
     padding:6px 6px 6px 0px;
     }
@@ -64,7 +64,7 @@
 
                 <td align="center">
 
-                    Report date > <input type="text" id="" ng-model="dsearchf" placeholder="mm-dd-yyyy" />(mm-dd-yyyy)
+                    Report date > <input type="text" style="width:90px" id="" ng-model="dsearchf" placeholder="mm-dd-yyyy" />(mm-dd-yyyy)
 
                 </td>
 
@@ -90,14 +90,20 @@
             <tr style="font-family:wb">
                 <td><b>Project Name</b></td>
                 <td><b>Report Date</b></td>
+                <td><b>Manager</b></td>
+
                 <td align="center">Week Status</td>
-                <!--<td align="center">Form Status</td>-->
-                <!--<td></td>-->
+                <td align="center"># Issues</td>
+                <td align="center"># Milestones</td>
+
             </tr>
             <tr ng-repeat="f in flist | filter:{status:csearch,pname:allpr} | dsearchfn:dsearchf">
 
+
                 <td>||f.pname||</td>
                 <td><a href="/form/||f.fid||">||f.date||</a></td>
+                <td>||f.manager||</td>
+
                 <td align="center">
 
 
@@ -113,7 +119,8 @@
                     <i class="fa fa-circle-o" ng-show="f.status==3" style="font-size:14px;color:green;margin:10px"></i>
 
                 </td>
-                <!--<td align="center">||f.formstatus||</td>-->
+                <td align="center">||f.icount||</td>
+                <td align="center">||f.mcount||</td>
                 <!--<td><i class="fa fa-times" style="color:red"></i></td>-->
 
             </tr>

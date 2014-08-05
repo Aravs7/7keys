@@ -52,21 +52,22 @@
 
 
                      <a href="/admin" style="text-decoration:none">
+
+                         {% endif %}
+
+                          {% if current_user.is_authenticated() == True and current_user.is_admin() == False %}
+
+
+                     <a href="/app" style="text-decoration:none">
+
+                         {% endif %}
                     <font style="font-size:22px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
                     <font style="font-size:22px;;color:#0cadb7" >7 Keys</font>
                     </a>
 
-                    {% endif %}
-
-                    {% if current_user.is_authenticated() == True and current_user.is_admin() == False %}
 
 
-                     <a href="/" style="text-decoration:none">
-                    <font style="font-size:22px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
-                    <font style="font-size:22px;;color:#0cadb7" >7 Keys</font>
-                    </a>
 
-                    {% endif %}
 
 
                 </td>

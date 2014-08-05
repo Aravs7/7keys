@@ -4,7 +4,7 @@
 <style type="text/css">
 
     td{
-    font-weight:bold;
+
     font-family:'ws';
     padding-left:0px;
     }
@@ -38,8 +38,8 @@
             </tr>
             <tr ng-repeat="f in p.forms">
 
-                <td><a href="/form/||f.fid||">||f.date||</a></td>
-                <td align="center">
+                <td style="width:35%"><a href="/form/||f.fid||">||f.date||</a></td>
+                <td style="width:30%" align="center">
 
 
                     <i class="fa fa-circle-o" ng-show="f.status==1" style="font-size:14px;color:red;margin:10px "></i>
@@ -52,8 +52,8 @@
                     <i class="fa fa-circle-o" ng-show="f.status==3" style="font-size:14px;color:green;margin:10px"></i>
 
                 </td>
-                <td align="center">||f.formstatus||</td>
-                <td><i class="fa fa-times" style="color:red"></i></td>
+                <td style="width:30%" align="center" style="width:25%">||f.formstatus||</td>
+                <td style="width:5%"><i class="fa fa-times" style="color:red"></i></td>
 
             </tr>
         </table>
