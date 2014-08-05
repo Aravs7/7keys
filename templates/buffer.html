@@ -186,3 +186,125 @@
 
 
 
+
+
+
+
+        <h4>Add new project</h4>
+
+        <table style="width:100%" class="">
+
+            <tr>
+
+
+                <td><input type="text" ng-model="pn" placeholder="Project Name"/></td>
+
+                <td><input type="text" ng-model="gld" placeholder="Go-Live date" id="pgld"/></td>
+                <td></td>
+                <td></td>
+
+
+            </tr>
+
+            <tr>
+
+
+                <td>
+
+                    <div class="dropdown">
+
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown"
+                                style="border:0px;background:#;border-radius:0px;padding-left:2px">
+                            ||pm||
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" ng-repeat="mgr in mgrs" ng-click="selMgr(mgr.id,mgr.name)"><a
+                                    role="menuitem">||mgr.name||</a></li>
+
+                        </ul>
+                    </div>
+
+                </td>
+                <td><input type="text" ng-model="md" placeholder="Managing Director"/></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+            <tr>
+
+
+                <td><input type="text" ng-model="pv" placeholder="Project Value"/></td>
+                <td><input type="text" ng-model="pt" placeholder="Project Type"/></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+
+            <tr>
+
+
+                <td>
+                    <div class="dropdown">
+
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown"
+                                style="border:0px;background:#;border-radius:0px;padding-left:2px">
+                            ||mnv||
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" ng-click="selVersion('5.4')"><a role="menuitem">5.4</a></li>
+                            <li role="presentation" ng-click="selVersion('5.5')"><a role="menuitem">5.5</a></li>
+                            <li role="presentation" ng-click="selVersion('5.6')"><a role="menuitem">5.6</a></li>
+                            <li role="presentation" ng-click="selVersion('5.7')"><a role="menuitem">5.7</a></li>
+
+                        </ul>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="dropdown">
+
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown"
+                                style="border:0px;background:#;border-radius:0px;padding-left:2px">
+                            ||pp||
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" ng-click="selPhase('Inception')"><a role="menuitem">Inception</a>
+                            </li>
+                            <li role="presentation" ng-click="selPhase('Elaboration')"><a
+                                    role="menuitem">Elaboration</a></li>
+                            <li role="presentation" ng-click="selPhase('Construction')"><a
+                                    role="menuitem">Construction</a></li>
+                            <li role="presentation" ng-click="selPhase('Verification')"><a
+                                    role="menuitem">Verification</a></li>
+                            <li role="presentation" ng-click="selPhase('Transition')"><a role="menuitem">Transition</a>
+                            </li>
+                            <li role="presentation" ng-click="selPhase('Support')"><a role="menuitem">Support</a></li>
+
+                        </ul>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <button class="btn btn-sm btn-info" ng-click="addProj()">Save</button>
+                </td>
+
+
+            </tr>
+
+
+        </table>
+
+    </div>
+    <hr>
+
+

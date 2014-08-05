@@ -43,59 +43,99 @@
     </div>
     <table style="width:100%">
 
-        <tr style="margin-bottom:6px;width:50%">
-            <td>
+        <tr style="margin-bottom:6px;">
+            <td style="width:20px">
+                <i class="fa fa-list" style="font-size:10px;font-weight:normal" ng-click="togglePrdet()"></i>
+            </td>
+            <td style="width:30%">
 
-                <div class="dropdown" >
+                <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" style="border:0px;background:#ecf0f2;border-radius:0px">
+                            data-toggle="dropdown"
+                            style="border:0px;background:#;border-radius:0px;border-bottom:solid 0px #eeeeee">
                         <font style="font-weight:bold;font-size:18px" class="headerf">||prsn||</font>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation" ng-repeat="pr in p"><a role="menuitem" tabindex="-1" href="#" ng-click="selProj(pr.id,pr.name)">||pr.name||</a></li>
+                        <li role="presentation" ng-repeat="pr in p"><a role="menuitem" tabindex="-1" href="#"
+                                                                       ng-click="selProj(pr.id,pr.name)">||pr.name||</a>
+                        </li>
                     </ul>
                 </div>
                 <!--<h4 style="font-weight:bold;font-size:22px" class="headerf">||projectname||</h4>-->
             </td>
 
-            <td align="left" style="width:50%">
+
+            <td align="left" style="width:30%">
 
                 <table style="border-radius:4px;border:solid 1px #f2f2f2">
                     <tr>
 
-
+                        <!--<td id="financialstab" class="app_form_tab" ng-click="accInfo()"><i-->
+                        <!--class="fa fa-list"></i> Account Info-->
+                        <!--</td>-->
                         <td id="7keystab" class="app_form_tab_active" ng-click="tabShift('7keys')"><i
                                 class="fa fa-key"></i> 7 Keys
-                        </td>
-                        <td id="issuestab" class="app_form_tab" ng-click="tabShift('issues')"><i
-                                class="fa fa-exclamation"></i> Issues / Risks
                         </td>
                         <td id="milestonestab" class="app_form_tab" ng-click="tabShift('milestones')"><i
                                 class="fa fa-road"></i> Milestones
                         </td>
-                        <td id="financialstab" class="app_form_tab" ng-click="tabShift('financials')"><i
-                                class="fa fa-list"></i> Account Info
+                        <td id="issuestab" class="app_form_tab" ng-click="tabShift('issues')"><i
+                                class="fa fa-exclamation"></i> Issues / Risks
                         </td>
+
+
                     </tr>
                 </table>
 
             </td>
 
 
-            <td align="right" class=""><input align="center" placeholder="Report Date" class="datepicker" style="width:100px;border-radius:0px;font-weight:bold" type="text"/></td>
+            <td align="right" class="" style="width:20%">
+
+                <div class="input-append date" id="dp3" data-date="||today||" data-date-format="mm-dd-yyyy">
+                    <table>
+                        <tr>
+                            <td><input class="span2" size="16" type="text" value="||rdate||" placeholder="Report date"
+                                       disabled></td>
+                            <td style="padding-left:4px"><span class="add-on" style=""><i
+                                    class="fa fa-calendar"></i></span></td>
+                        </tr>
+                    </table>
+
+
+                </div>
+                <!--<input align="center" placeholder="Report Date" class="datepicker" style="width:100px;border-radius:0px;font-weight:bold" type="text" disabled /><i class="fa fa-list" class="datepicker" ></i>-->
+
+            </td>
 
             <td style="" align="right">
 
-               <!--Status: Draft&nbsp;&nbsp;&nbsp;&nbsp; -->
-               <i class="fa fa-cloud-upload"></i> Submit &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-save"></i> Save As
+                <!--Status: Draft&nbsp;&nbsp;&nbsp;&nbsp; -->
+                <i class="fa fa-cloud-upload"></i> Submit
+                <!--&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-save"></i> Save As-->
 
             </td>
+
 
         </tr>
 
 
+    </table>
 
+</div>
+
+<div style="background:#;border-top:solid 1px #dddddd;border-bottom:solid 1px #dddddd;font-size:10px;display:none"
+     id="prdetails">
+
+    <table style="width:70%">
+        <tr>
+            <td>&nbsp;Version : <b>||pdata.version||</b></td>
+            <td>Project Phase : <b>||pdata.phase||</b></td>
+            <td>Area : <b>||pdata.area||</b></td>
+            <td>Value : <b>||pdata.value||</b></td>
+
+        </tr>
     </table>
 
 </div>
@@ -113,38 +153,46 @@
 
             <td style="width:33%;vertical-align:middle;font-size:16px">||k.keyfname||
 
-            <i tooltip style="font-size:12px" class="fa fa-question" data-toggle="tooltip" data-placement="right" title="k.keyfname"></i>
+                <i tooltip style="font-size:16px" class="fa fa-question" data-toggle="popover" data-placement="right"
+                   val="||k.keyldescr||"></i>
             </td>
 
             <td align="center" style="vertical-align:middle;font-size:24px;">
 
 
                 <div>
-                <i class="fa fa-circle-o" ng-show="k.kival!=1" id="key||k.kiid||1" ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:#F0EEEE;"></i>
-                <i class="fa fa-circle-o" ng-show="k.kival==1" id="key||k.kiid||1" ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:red;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival!=1" id="key||k.kiid||1"
+                       ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:#F0EEEE;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival==1" id="key||k.kiid||1"
+                       ng-click="saveKeyVal(k,k.kiid,1,k.keyname)" style="color:red;"></i>
                 </div>
                 <font style="font-size:12px">Red</font>
             </td>
 
             <td align="center" style="vertical-align:middle;font-size:24px;">
                 <div>
-                <i class="fa fa-circle-o" ng-show="k.kival!=2" id="key||k.kiid||2" ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#F0EEEE;"></i>
-                <i class="fa fa-circle-o" ng-show="k.kival==2" id="key||k.kiid||2" ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#FFBF00;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival!=2" id="key||k.kiid||2"
+                       ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#F0EEEE;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival==2" id="key||k.kiid||2"
+                       ng-click="saveKeyVal(k,k.kiid,2,k.keyname)" style="color:#FFBF00;"></i>
                 </div>
                 <font style="font-size:12px">Yellow</font>
-           </td>
+            </td>
 
             <td align="center" style="vertical-align:middle;font-size:24px;">
-                 <div>
-                <i class="fa fa-circle-o" ng-show="k.kival!=3" id="key||k.kiid||3" ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:#F0EEEE;"></i>
-                <i class="fa fa-circle-o" ng-show="k.kival==3" id="key||k.kiid||3" ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:green;"></i>
+                <div>
+                    <i class="fa fa-circle-o" ng-show="k.kival!=3" id="key||k.kiid||3"
+                       ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:#F0EEEE;"></i>
+                    <i class="fa fa-circle-o" ng-show="k.kival==3" id="key||k.kiid||3"
+                       ng-click="saveKeyVal(k,k.kiid,3,k.keyname)" style="color:green;"></i>
                 </div>
                 <font style="font-size:12px">Green</font>
             </td>
 
             <td align="right" style="vertical-align:middle;font-size:16px">
 
-                <textarea ng-blur="saveComment(k.kiid)" id="||k.kiid||com" placeholder="Brief reason / update on yellow / red status">||k.keycom||</textarea>
+                <textarea ng-blur="saveComment(k.kiid)" id="||k.kiid||com"
+                          placeholder="Brief reason / update on yellow / red status">||k.keycom||</textarea>
 
             </td>
 
@@ -158,29 +206,65 @@
 
 <div style="padding:0px;display:none" id="issues" class="app_form_tab_div">
 
+    <div class="alert alert-info" role="alert" style="font-size:12px;padding:8px;border-radius:0">
+        Include here the key risks and issues on a program level only. This should not exceed 5 key issues / risks
+        <i class="fa fa-times" style="float:right"></i>
+    </div>
+
     <table class="table table-striped">
 
         <thead>
         <tr>
-        <td>Issue Descr</td>
-        <td>Priority</td>
-        <td>Action</td>
-        <td>Owner</td>
-        <td>Resolution Date</td>
-        <td></td>
+            <td>Type</td>
+            <td>Status</td>
+            <td>Issue Descr</td>
+            <!--<td>Priority</td>-->
+            <td>Action</td>
+            <td>Owner</td>
+            <td>Due Date</td>
+            <td></td>
         </tr>
         </thead>
 
-     <tr ng-repeat="is in isrl">
-         <td><input type="text" id="d||is.isrid||" value="||is.descr||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="p||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="a||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="o||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="r||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+        <tr ng-repeat="is in isrl">
+
+            <td>
+
+                <select id="t||is.isrid||" ng-model="is.itype" ng-change="updateIssueRec(is.isrid)">
+                    <option selected="selected" value="IS">Issue</option>
+                    <option value="RI">Risk</option>
+
+                </select>
+            </td>
+            <td>
+                 <select id="s||is.isrid||" ng-model="is.status" ng-change="updateIssueRec(is.isrid)">
+                    <option selected="selected" value="OP">Open</option>
+                    <option value="RE">Resolved</option>
+
+                </select>
+            </td>
+            <td><textarea ng-model="is.descr" style="width:200px" id="d||is.isrid||" ng-blur="updateIssueRec(is.isrid)"></textarea></td>
+            <td><textarea ng-model="is.action" style="width:200px" id="a||is.isrid||" ng-blur="updateIssueRec(is.isrid)"></textarea></td>
+            <td>
+              <input style="width:100px" type="text" ng-model="is.owner" id="o||is.isrid||" ng-blur="updateIssueRec(is.isrid)"/>
+           </td>
+
+            <td>
+                 <div class="dtp input-append date" data-date="||today||" data-date-format="mm-dd-yyyy" isid="||is.isrid||" type="issue" field="duedate" cval="||is.duedate||" datepicker>
+                <table>
+                        <tr>
+                            <td><input class="span2" size="16" type="text"  placeholder=""
+                                       disabled></td>
+                            <td style="padding-left:4px"><span class="add-on" style=""><i
+                                    class="fa fa-calendar"></i></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
 
 
-         <td><i style="color:red" class="fa fa-times-circle"></i> </td>
-     </tr>
+            <td><i style="color:red" class="fa fa-times-circle"></i></td>
+        </tr>
 
 
     </table>
@@ -189,36 +273,97 @@
 
 </div>
 
+<!--<div  class="slider slider-horizontal" style="width: 140px;" sliderdiv>-->
+                   <!--<div class="slider-track" >-->
+                       <!--<div class="slider-selection" style="left: 0%; width: 50%;"></div>-->
+                       <!--<div class="slider-handle round" style="left: 50%;"></div>-->
+                       <!--<div class="slider-handle round hide" style="left: 0%;" ></div>-->
+                   <!--</div>-->
+
+               <!--</div>-->
+
 <div style="padding:0px;display:none" id="milestones" class="app_form_tab_div">
+
+    <div class="alert alert-info" role="alert" style="font-size:12px;padding:8px;border-radius:0">
+        Milestones should represent a high-level Gantt chart. This should include the 5 major project phases + other key
+        project milestones OR the key build schedule for support.
+        <i class="fa fa-times" style="float:right"></i>
+    </div>
 
     <table class="table table-striped">
 
         <thead>
         <tr>
-        <td>Description</td>
-        <td>Baseline</td>
-        <td>Current</td>
-        <td>Plan %</td>
-        <td>Actual %</td>
-        <td>Comments</td>
+            <td>Description</td>
+            <td>Planned Start</td>
+            <td>Original Plan</td>
+
+            <td>Current/Actual Date</td>
+            <td>Status</td>
+            <td></td>
         </tr>
         </thead>
 
-     <tr ng-repeat="is in isrl">
-         <td><input type="text" id="d||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="p||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="a||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="o||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
-         <td><input type="text" id="r||is.isrid||" ng-blur="updateRec(is.isrid)"/></td>
+        <tr ng-repeat="ms in mstl">
+            <td><input type="text" id="d||ms.mstid||" ng-model="ms.descr" ng-blur="updateMilestoneRec(ms.mstid)"/></td>
+
+            <td>
+                <div class="dtp input-append date" data-date="||today||" data-date-format="mm-dd-yyyy" isid="||ms.mstid||" type="milestone" field="planneddate" cval="||ms.planneddate||" datepicker>
+                <table>
+                        <tr>
+
+                            <td><input class="span2" size="16" type="text"
+                                       /></td>
+                            <td style="padding-left:4px"><span class="add-on" style=""><i
+                                    class="fa fa-calendar"></i></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td >
+                <input style="width:100px" type="text" ng-model="ms.original" id="o||ms.mstid||" ng-blur="updateMilestoneRec(ms.mstid)"/>%
+
+            <!--<br>-->
 
 
-         <td><i style="color:red" class="fa fa-times-circle"></i> </td>
-     </tr>
+
+
+            </td>
+
+
+
+            <td>
+
+                <div class="dtp input-append date" data-date="||today||" data-date-format="mm-dd-yyyy" isid="||ms.mstid||" type="milestone" field="actualdate" cval="||ms.actualdate||" datepicker>
+                <table>
+                        <tr>
+                            <td><input class="span2" size="16" type="text"  placeholder=""
+                                       disabled></td>
+                            <td style="padding-left:4px"><span class="add-on" style=""><i
+                                    class="fa fa-calendar"></i></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </td>
+
+            <td>
+                <select id="s||ms.mstid||" ng-model="ms.status" ng-change="updateMilestoneRec(||ms.mstid||)">
+                    <option selected="selected" value="NS">Not Started</option>
+                    <option value="OT">On Track</option>
+                    <option value="BS">Behind Schedule</option>
+                    <option value="CO">Complete</option>
+                </select>
+            </td>
+
+
+            <td><i style="color:red" class="fa fa-times-circle"></i></td>
+        </tr>
 
 
     </table>
 
-    <div class="btn btn-sm btn-info" ng-click="addIssueRecord()">Add Record</div>
+    <div class="btn btn-sm btn-info" ng-click="addMilestoneRecord()">Add Record</div>
 
 
 </div>
@@ -243,10 +388,14 @@
 
 </div>
 <script type="text/javascript">
-    $('.datepicker').datepicker();
+    $('#dp3').datepicker();
+
+
+
+
+
 
 </script>
-
 
 
 </div>

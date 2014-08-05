@@ -79,6 +79,7 @@ class Key(MySQLModel):
 
     keyname = CharField(null= True)
     keydescr = TextField(null= True)
+    longdescr = TextField(null= True)
     defaultval = IntegerField(null= True)
     hascomments = BooleanField(null= True)
 
@@ -97,6 +98,8 @@ class Issue(MySQLModel):
     action = TextField(null= True)
     owner = CharField(null= True)
     resdate = DateField(null= True)
+    itype = CharField(null=True)
+    status = CharField(null=True)
 
 class Milestone(MySQLModel):
 
