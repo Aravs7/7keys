@@ -74,6 +74,19 @@ class Form(MySQLModel):
     createdby = ForeignKeyField(User, related_name='createdby', null= True)
     projectstatus = IntegerField(null= True)
 
+class Projectinstance(MySQLModel):
+
+    form = ForeignKeyField(Form, related_name='forform', null=True)
+    project = ForeignKeyField(Project, related_name='pip', null=True)
+    pobj = TextField(null=True)
+    smi = CharField(null=True)
+    parea = CharField(null=True)
+    phase = CharField(null=True)
+    golive = DateField(null=True)
+    value = IntegerField(null=True)
+    mnversion = CharField(null=True)
+    dept = CharField(null=True)
+
 
 class Key(MySQLModel):
 
@@ -107,7 +120,7 @@ class Milestone(MySQLModel):
     mdescr = TextField(null= True)
     baseline = DateField(null= True)
     current = DateField(null= True)
-    planperc = IntegerField(null= True)
+    planperc = DateField(null= True)
     actualperc = IntegerField(null= True)
     comments = TextField(null= True)
 

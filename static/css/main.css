@@ -11,7 +11,7 @@ src:url('/static/fonts/weblysleekuisb.ttf')
 
 body{
 position:relative;
-font-family: 'ws';
+font-family: 'Helvetica';
 }
 
 .form-signin {

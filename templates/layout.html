@@ -14,11 +14,13 @@
     <link href="/static/bootstrap3-editable/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
     <script src="/static/bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
     <script src="/static/slider/js/bootstrap-slider.js"></script>
+    <script src="/static/js/bootbox.min.js"></script>
     <script src="/static/bootstrap3-editable/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="/static/js/app.js"></script>
 
@@ -28,9 +30,9 @@
     </script>
 
 </head>
-<body ng-app="keys">
+<body ng-app="keys" ng-cloak>
 
-<div class="container-fluid" style="font-family: 'Open Sans', sans-serif;padding:0px;background:#191919;">
+<div class="container-fluid" style="font-family: 'Open Sans', sans-serif;padding:0px;background:#191919;opacity:0.88;border-bottom:4px;border-image: url("/static/images/colorfulborder.png") 1 stretch repeat;">
 
    <div class="row-fluid" style="border0;margin:0;padding:0;background:#191919;">
 
@@ -61,7 +63,7 @@
                      <a href="/app" style="text-decoration:none">
 
                          {% endif %}
-                    <font style="font-size:22px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
+                    <font style="font-size:24px;;font-family: 'Francois One', sans-serif;color:#ffffff" >Model N</font>&nbsp;&nbsp;&nbsp;
                     <font style="font-size:22px;;color:#0cadb7" >7 Keys</font>
                     </a>
 
@@ -101,7 +103,7 @@
 
 </div>
 
-<div style="height:5px;background:#f2f2f2">
+<div style="height:1px;background:#f2f2f2;background-image:url('/static/images/colorfulborder.png');background-size:1200px">
 
        </div>
 

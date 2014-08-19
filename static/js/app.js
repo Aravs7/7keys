@@ -17,10 +17,30 @@ keysapp.directive('tooltip', function($compile) {
       },
 
     link: function(scope, element, attrs){
-   console.log("yoyo");
+   console.log(attrs.val);
 
    $(element).popover({html:true,trigger:'hover'})
           .attr('data-content', attrs.val).attr('html',true);
+
+   }
+   }
+  });
+
+
+  keysapp.directive('conditionalediting', function($compile) {
+
+   return{
+   restrict: 'A',
+      scope: {
+        tooltip: '='
+      },
+
+    link: function(scope, element, attr){
+
+   console.log("*********"+$('#formstatus').val());
+   if($('#formstatus').val() == 'SUBMITTED'){
+   $(element).css('pointer-events','none');
+   }
 
    }
    }
@@ -174,8 +194,12 @@ keysapp.directive('tooltip', function($compile) {
 
    link: function(scope, element, attr){
 
+   console.log("im here");
+
 
    $(element).addClass("editable editable-click editable-empty");
+
+    console.log("im here2");
 
    $(element).editable({
 
@@ -208,6 +232,9 @@ keysapp.directive('tooltip', function($compile) {
 
 
     });
+
+     console.log("im here");
+
 
    }
    }
@@ -392,6 +419,49 @@ keysapp.directive('tooltip', function($compile) {
   });
 
 
+keysapp.directive('xeditablemd', function($compile,$http) {
+
+   return{
+   restrict: 'A',
+      scope: {
+        tooltip: '='
+      },
+
+   link: function(scope, element, attr){
+
+
+   $(element).addClass("editable editable-click editable-empty");
+
+   $(element).editable({
+
+
+   validate: function(value) {
+           if($.trim(value) == '') return 'This field is required';
+        },
+   success:function(response, newValue) {
+        console.log(newValue+" "+attr.val);
+
+        var l = $http.get("/saveProjectParam/"+attr.pid+"/"+"md"+"/"+newValue);
+
+        l.success(function(data, status, headers, config) {
+        console.log(data);
+
+        });
+        l.error(function(data, status, headers, config) {
+         console.log(data);
+        });
+
+
+    },
+
+
+    });
+
+   }
+   }
+  });
+
+
 
 
 
@@ -426,24 +496,116 @@ $("#error").html(data);
 
 keysapp.controller('formController',function($scope,$http){
 
+
+$scope.deleteIssue=function(id){
+console.log(id);
+
+var deli = $http.get("/deleteIssue/"+id);
+
+deli.success(function(data, status, headers, config) {
+console.log(data);
+
+
+$scope.isrl = jQuery.grep($scope.isrl, function(value) {
+  return value.isrid != id;
+});
+
+
+});
+
+deli.error(function(data, status, headers, config) {
+    $("#error").html(data);
+});
+
+
+};
+
+
+
+
+$scope.deleteMilestone=function(id){
+console.log(id);
+
+var deli = $http.get("/deleteMilestone/"+id);
+
+deli.success(function(data, status, headers, config) {
+console.log(data);
+
+
+$scope.mstl = jQuery.grep($scope.mstl, function(value) {
+  return value.mstid != id;
+});
+
+
+});
+
+deli.error(function(data, status, headers, config) {
+    $("#error").html(data);
+});
+
+
+};
+
+
+
+
+
 $scope.submitReport=function(){
 
-var fid = $('#fid').val();
+
+
+ //---------
+
+
+        bootbox.dialog({
+  message: "Please review and update all three tabs prior to submitting your report as required. Once submitted, report will not be editable. Click Ok to submit the report",
+  title: "Submit Report",
+  buttons: {
+    Submit: {
+      label: "Submit",
+      className: "btn-success",
+      callback: function() {
+
+
+      var fid = $('#fid').val();
 
 console.log(fid);
 
 $scope.formstatus="";
 
-var reps = $http.get("/submitReport/"+fid);
+var reps = $http.get("/submitReport/"+fid+"/"+$scope.pdata.phase);
 
 reps.success(function(data, status, headers, config) {
 console.log(data);
 $scope.formstatus="SUBMITTED";
+$('#tabs-container').css('pointer-events','none');
 });
 
 reps.error(function(data, status, headers, config) {
     $("#error").html(data);
 });
+
+
+
+      }
+    },
+    Cancel: {
+      label: "Cancel",
+      className: "btn-danger",
+      callback: function() {
+
+       //  bootbox.alert("<a href=https://help.modeln.com/GCS/COE/00_Methodology_Description%2F%2FGoals/04_Phase_Detail>Click here to access GATE review form</a>", function() {
+       // });
+
+      }
+    }
+  }
+});
+
+
+        //---------
+
+
 
 };
 
@@ -479,8 +641,7 @@ proje.error(function(data, status, headers, config) {
 
 };
 
-$('#dp3').datepicker()
-  .on('changeDate', function(ev){
+$('#dp3').datepicker().on('changeDate', function(ev){
     console.log("date changed ");
     var repDay = ev.date.getDate();
     var repMonth = ev.date.getMonth()+1;
@@ -490,7 +651,7 @@ $('#dp3').datepicker()
   });
 
 $scope.saveDate=function(){
-console.log("in Save Date");
+   console.log("in Save Date");
 };
 
 
@@ -616,6 +777,8 @@ $('.app_form_tab_active').removeClass('app_form_tab_active');
 $('#'+id+'tab').addClass('app_form_tab_active');
 $('.app_form_tab_div').hide();
 $('#'+id).show();
+
+
 };
 
 $scope.selProj=function(i,n){
@@ -747,7 +910,7 @@ $scope.updateMilestoneRec=function(recid){
 
 console.log("yoyo "+$('#s'+recid).val());
 
-var mrec = $http.get("/saveMilestoneRec/"+recid+"/"+$("#d"+recid).val()+"/"+$("#s"+recid).val()+"/"+$("#o"+recid).val());
+var mrec = $http.get("/saveMilestoneRec/"+recid+"/"+$("#d"+recid).val()+"/"+$("#s"+recid).val());
 
 mrec.success(function(data, status, headers, config) {
 console.log(data);
@@ -756,6 +919,62 @@ console.log(data);
 mrec.error(function(data, status, headers, config) {
     $("#error").html(data);
 });
+
+
+};
+
+
+$scope.editPhase=function(pid,phase){
+
+console.log(pid+' '+phase);
+
+
+$scope.pdata.phase = phase;
+
+var l = $http.get("/saveProjectParam/"+pid+"/"+"phase"+"/"+phase);
+
+        l.success(function(data, status, headers, config) {
+        console.log(data);
+
+
+        //---------
+
+
+        bootbox.dialog({
+  message: "You're trying to change project phase. Is Gate Review completed?",
+  title: "GATE review completed?",
+  buttons: {
+    Yes: {
+      label: "Yes",
+      className: "btn-success",
+      callback: function() {
+
+      }
+    },
+    No: {
+      label: "No",
+      className: "btn-danger",
+      callback: function() {
+
+         bootbox.alert("<a href=https://help.modeln.com/GCS/COE/00_Methodology_Description%2F%2FGoals/04_Phase_Detail>Click here to access GATE review form</a>", function() {
+        });
+
+      }
+    }
+  }
+});
+
+
+        //---------
+
+
+
+
+        });
+        l.error(function(data, status, headers, config) {
+         console.log(data);
+        });
+
 
 
 };
@@ -840,7 +1059,7 @@ $scope.loadProjects();
 //Admin page controller
 
 keysapp.controller('adminController',function($scope,$http){
-console.log("in admin ctrl");
+
 $.fn.editable.defaults.mode = 'inline';
 $scope.pn="";
 $scope.pv="";
@@ -853,6 +1072,42 @@ $scope.pmid="";
 $scope.gld="";
 $scope.accnt="";
 $scope.mgrs=[];
+$scope.allpr="";
+$scope.allprtxt="All Results";
+$scope.csearch="";
+$scope.csearchtxt="All Statuses";
+
+
+$scope.chPrjSrch=function(pn){
+console.log(pn);
+
+if(pn == "All Results"){
+$scope.allpr ="";
+$scope.allprtxt=pn;
+return;
+}
+
+$scope.allpr = pn;
+$scope.allprtxt = $scope.allpr;
+};
+
+
+$scope.chPrjSrchClr=function(pn,pnn){
+console.log(pn);
+
+if(pn == 0){
+$scope.csearch ="";
+$scope.csearchtxt=pnn;
+return;
+}
+
+
+$scope.csearch = pn;
+$scope.csearchtxt = pnn;
+
+};
+
+
 
 
 
@@ -863,6 +1118,11 @@ $('.app_form_tab_active').removeClass('app_form_tab_active');
 $('#'+id+'tab').addClass('app_form_tab_active');
 $('.app_form_tab_div').hide();
 $('#'+id).show();
+console.log(id+"%%%%%%%%%%");
+if(id=='charts'){
+console.log('charts');
+$scope.drawCharts();
+}
 };
 
 
@@ -1010,6 +1270,135 @@ prs.error(function(data, status, headers, config) {
 $scope.loadAdminProjects();
 
 
+
+
+$scope.loadUsers = function(){
+
+var usrs = $http.get("/getUsers");
+
+usrs.success(function(data, status, headers, config) {
+console.log(data);
+$scope.ulist = data;
+});
+
+usrs.error(function(data, status, headers, config) {
+    console.log(data);
+});
+
+
+};
+
+
+$scope.loadUsers();
+
+$scope.cdata=[
+    ['Keys', 'LS', 'HT'],
+    ['1',  10,      40],
+    ['2',  20,      40],
+    ['3',  5,       5],
+    ['4',  30,      15]
+  ];
+
+
+
+
+
+$scope.drawColumnChart= function(){
+
+
+var rs = $http.get("/getOverallRedStatus");
+
+rs.success(function(adata, status, headers, config) {
+
+ var data = new google.visualization.DataTable();
+ data.addColumn('string', 'Key');
+ data.addColumn('number', 'HT');
+ data.addColumn({type: 'string', role: 'tooltip'});
+ data.addColumn('number', 'LS');
+ data.addColumn({type: 'string', role: 'tooltip'});
+
+ data.addRows(adata);
+
+  var options = {
+    title: 'Overall Red %  LS & HT',
+    hAxis: {title: 'Keys', titleTextStyle: {color: 'blue'}},
+    vAxis:{title:'%'},
+    chartArea:{left:60,top:20,bottom:10,width:'1200',height:'900'}
+  };
+
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+  chart.draw(data, options);
+
+
+});
+
+rs.error(function(data, status, headers, config) {
+    console.log(data);
+});
+
+};
+
+
+
+$scope.drawPieChart= function() {
+        var data = google.visualization.arrayToDataTable([
+          ['Status', '# of reports'],
+          ['Red',     11],
+          ['Yellow',      2],
+          ['Green',  2]
+        ]);
+
+        var rs = $http.get("/getStatusesPie");
+
+rs.success(function(adata, status, headers, config) {
+
+  var data = google.visualization.arrayToDataTable(adata);
+
+  var options = {
+          title: 'Statuses Pie',
+          is3D: true,
+          chartArea:{left:60,top:60,bottom:10,width:'1200',height:'900'},
+          slices: [
+            { color: 'red' },
+            { color: '#ffbf00' },
+            { color: 'green' }
+          ],
+          legend:{position: 'left'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+
+
+});
+
+rs.error(function(data, status, headers, config) {
+    console.log(data);
+});
+
+
+
+      };
+
+
+$scope.drawCharts=function(){
+
+$scope.drawColumnChart();
+$scope.drawPieChart();
+
+};
+
+
+//google.setOnLoadCallback($scope.drawCharts);
+console.log("Google Chart "+google);
+
+
+
+
+
+
+
 });
 
 
@@ -1040,10 +1429,36 @@ keysapp.filter('dsearchfn', function () {
 
 
 
+
+keysapp.controller('chartController',function($scope,$http){
+
+$scope.d = "hello world";
+
+$scope.cdata=[
+    ['Year', 'Sales', 'Expenses'],
+    ['2004',  1000,      400],
+    ['2005',  1170,      460],
+    ['2006',  660,       1120],
+    ['2007',  1030,      540]
+  ];
+
+
+
+
+
+
+});
+
+
+
+
+
 $(document).ready(function () {
 
 
         //alert("init");
+
+
 
 });
 

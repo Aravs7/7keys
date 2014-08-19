@@ -3,39 +3,52 @@
 
 <style type="text/css">
 
+
+
     td{
 
-    font-family:'ws';
+    font-family: 'Helvetica';
     padding-left:0px;
+    font-size:15px;
+    font-weight:100;
     }
+
+
+
+    h1,h2,h3,h4,h5,h6{
+     font-family: 'ws';
+    font-weight: 400;
+    }
+
+
 
 </style>
 <input type="hidden" id="uid" value="{{current_user.id}}"/>
-
+<br>
 <div ng-controller="appController">
 
 
     <table style="width:100%">
         <tr>
             <td><h3 style="display:inline">My Reports</h3></td>
-            <td align="right" style="vertical-align:middle"><a ng-click="createForm()"><i class="fa fa-plus"></i> Create
+            <td align="right" style="vertical-align:middle;font-size:14px"><a ng-click="createForm()"><i class="fa fa-plus"></i> Create
                 new</a></td>
         </tr>
     </table>
     <hr>
     <div ng-repeat="p in projlist" style="margin-bottom:40px">
 
-        <h4>||p.name||</h4>
+        <font style="font-size:18px">||p.name||</font>
 
-        <br>
+        <br><br>
 
         <table class="table table-striped">
-            <tr style="font-family:wb">
-                <td><b>Report Date</b></td>
+            <thead style="font-family:wb">
+                <td class="bold">Report Date</td>
                 <td align="center">Week Status</td>
                 <td align="center">Form Status</td>
                 <td></td>
-            </tr>
+            </thead>
             <tr ng-repeat="f in p.forms">
 
                 <td style="width:35%"><a href="/form/||f.fid||">||f.date||</a></td>
@@ -52,8 +65,8 @@
                     <i class="fa fa-circle-o" ng-show="f.status==3" style="font-size:14px;color:green;margin:10px"></i>
 
                 </td>
-                <td style="width:30%" align="center" style="width:25%">||f.formstatus||</td>
-                <td style="width:5%"><i class="fa fa-times" style="color:red"></i></td>
+                <td style="width:30%" align="center" style="width:25%">||f.formstatus |  lowercase||</td>
+                <td style="width:5%"><i class="fa fa-times" style="font-size:12px;color:red"></i></td>
 
             </tr>
         </table>

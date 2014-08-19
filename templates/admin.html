@@ -5,8 +5,12 @@
 
     td{
 
-    font-family:'ws';
+    font-family:'Helvetica';
+    font-size:14px;
     padding:6px 6px 6px 0px;
+    color:#424242;
+    font-weight:100;
+
     }
 
     input{
@@ -14,172 +18,304 @@
     }
 
 </style>
+<br>
 <div ng-controller="adminController">
 
-    <table style="width:100%">
+<table style="width:100%">
+    <tr>
+        <td><h3 style="display:inline;font-family:'ws'">Administration</h3></td>
+        <td align="right" style="vertical-align:middle">
+
+            <table style="border-radius:4px;border:solid 1px #f2f2f2">
+                <tr>
+
+                    <td id="reportstab" class="app_form_tab_active" ng-click="tabShift('reports')"><i
+                            class="fa fa-list"></i> Reports
+                    </td>
+
+                    <td id="projectstab" class="app_form_tab" ng-click="tabShift('projects')"><i
+                            class="fa fa-wrench"></i> Projects
+                    </td>
+
+                    <td id="projectstab" class="app_form_tab" ng-click="tabShift('users')"><i
+                            class="fa fa-user"></i> Users
+                    </td>
+
+                    <td id="chartstab" class="app_form_tab" ng-click="tabShift('charts')"><i
+                            class="fa fa-bar-chart-o"></i> Charts
+                    </td>
+
+                </tr>
+            </table>
+
+
+        </td>
+    </tr>
+</table>
+<hr>
+
+
+<div id="reports" class="app_form_tab_div">
+
+
+    <table class="" style="width:70%;background:#;width:100%">
+
         <tr>
-            <td><h3 style="display:inline">Administration</h3></td>
-            <td align="right" style="vertical-align:middle">
 
-                <table style="border-radius:4px;border:solid 1px #f2f2f2">
-                    <tr>
+            <td style="padding-left:0px;width:15%">
 
-                        <td id="reportstab" class="app_form_tab_active" ng-click="tabShift('reports')"><i
-                                class="fa fa-list"></i> Reports
-                        </td>
+                <!--<select ng-model="allpr" style="background:#ffffff;padding:6px;margin:0;border-radius:0">-->
+                <!--<option value="">All Results</option>-->
+                <!--<option ng-repeat="p in palist"  value="||p.name||">||p.name||</option>-->
 
-                        <td id="projectstab" class="app_form_tab" ng-click="tabShift('projects')"><i
-                                class="fa fa-wrench"></i> Projects
-                        </td>
+                <!--</select>-->
 
-                        <td id="chartstab" class="app_form_tab" ng-click="tabShift('charts')"><i
-                                class="fa fa-bar-chart-o"></i> Charts
-                        </td>
 
-                    </tr>
-                </table>
-
+                <div class="dropdown" style="">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown"
+                            style="padding-left:4px;border:0px;background:#;border-radius:0px;border-bottom:solid 0px #eeeeee;border-bottom:solid 0px #a4a4a4">
+                        <font style="font-size:14px;" class="">||allprtxt||</font>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"
+                                                   ng-click="chPrjSrch('All Results')">All Results</a>
+                        </li>
+                        <li role="presentation" ng-repeat="p in palist"><a role="menuitem" tabindex="-1" href="#"
+                                                                           ng-click="chPrjSrch(p.name)">||p.name||</a>
+                        </li>
+                    </ul>
+                </div>
 
             </td>
+
+
+            <td style="padding-left:0px;width:15%">
+
+                <!--<select ng-model="csearch" style="background:#ffffff;padding:6px">-->
+                <!--<option value="">All Statuses</option>-->
+                <!--<option value="1">Red</option>-->
+                <!--<option value="2">Yellow</option>-->
+                <!--<option value="3">Green</option>-->
+                <!--</select>-->
+
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown"
+                            style="padding-left:4px;border:0px;background:#;border-radius:0px;border-bottom:solid 0px #eeeeee;border-bottom:solid 0px #a4a4a4">
+                        <font style="font-size:14px;" class="">||csearchtxt||</font>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"
+                                                   ng-click="chPrjSrchClr(0,'All Statuses')">All Statuses</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"
+                                                   ng-click="chPrjSrchClr(1,'Red')">Red</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"
+                                                   ng-click="chPrjSrchClr(2,'Yellow')">Yellow</a>
+                        </li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#"
+                                                   ng-click="chPrjSrchClr(3,'Green')">Green</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </td>
+
+            <td align="left" style="padding-left:0px;width:35%">
+
+                <font style="font-size:14px;" class="">Report date </font>
+
+                <input type="text" style="text-align:center;width:90px;border:0;border-bottom:solid 1px" id=""
+                       ng-model="dsearchf" placeholder="mm-dd-yyyy"/> <font style="font-size:10px;color:#a4a4a4">(mm-dd-yyyy)</font>
+
+            </td>
+            <td></td>
+
         </tr>
+
     </table>
+
     <hr>
 
-    <div id="reports" class="app_form_tab_div">
+    <table class="table table-striped">
+        <tr style="font-family:wsb">
+            <td style="font-family:wsb">Project Name</td>
+            <td style="font-family:wsb">Report Date</td>
+            <td style="font-family:wsb">Manager</td>
+            <td style="font-family:wsb">MD</td>
+
+            <td style="font-family:wsb" align="center">Week Status</td>
+            <td style="font-family:wsb" align="center"># Issues</td>
+            <td style="font-family:wsb" align="center"># Milestones</td>
+
+        </tr>
+        <tr ng-repeat="f in flist | filter:{status:csearch,pname:allpr} | dsearchfn:dsearchf">
 
 
-        <table class="" style="width:70%">
+            <td>||f.pname||</td>
+            <td><a href="/form/||f.fid||">||f.date||</a></td>
+            <td>||f.manager||</td>
+            <td>||f.md||</td>
 
-            <tr>
-
-                <td style="padding-left">
-
-                    <select ng-model="allpr" style="background:#ffffff;padding:6px;margin:0;border-radius:0">
-                        <option value="">All Results</option>
-                        <option ng-repeat="p in palist"  value="||p.name||">||p.name||</option>
-
-                    </select>
-
-                </td>
-
-                <td align="center">
-
-                    Report date > <input type="text" style="width:90px" id="" ng-model="dsearchf" placeholder="mm-dd-yyyy" />(mm-dd-yyyy)
-
-                </td>
+            <td align="center">
 
 
-                <td>
-
-                    <select ng-model="csearch" style="background:#ffffff;padding:6px">
-                        <option value="">All Statuses</option>
-                        <option value="1">Red</option>
-                        <option value="2">Yellow</option>
-                        <option value="3">Green</option>
-                    </select>
-
-                </td>
-
-            </tr>
-
-        </table>
-
-<br>
-
-        <table class="table table-striped">
-            <tr style="font-family:wb">
-                <td><b>Project Name</b></td>
-                <td><b>Report Date</b></td>
-                <td><b>Manager</b></td>
-
-                <td align="center">Week Status</td>
-                <td align="center"># Issues</td>
-                <td align="center"># Milestones</td>
-
-            </tr>
-            <tr ng-repeat="f in flist | filter:{status:csearch,pname:allpr} | dsearchfn:dsearchf">
+                <i class="fa fa-circle-o" ng-show="f.status==1" style="font-size:14px;color:red;margin:10px "></i>
 
 
-                <td>||f.pname||</td>
-                <td><a href="/form/||f.fid||">||f.date||</a></td>
-                <td>||f.manager||</td>
-
-                <td align="center">
+                <i class="fa fa-circle-o" ng-show="f.status==2"
+                   style="font-size:14px;color:#FFBF00;margin:10px"></i>
 
 
+                <i class="fa fa-circle-o" ng-show="f.status==3" style="font-size:14px;color:green;margin:10px"></i>
+
+            </td>
+            <td align="center">||f.icount||</td>
+            <td align="center">||f.mcount||</td>
+            <!--<td><i class="fa fa-times" style="color:red"></i></td>-->
+
+        </tr>
+    </table>
 
 
-                    <i class="fa fa-circle-o" ng-show="f.status==1" style="font-size:14px;color:red;margin:10px "></i>
+</div>
 
 
-                    <i class="fa fa-circle-o" ng-show="f.status==2"
-                       style="font-size:14px;color:#FFBF00;margin:10px"></i>
+<div id="projects" class="app_form_tab_div" style="display:none">
+
+    <div align="right" style="margin-bottom:8px">
+        <a style="padding:4px;font-family:'Helvetica'" class="btn btn-sm btn-info" ng-click="addProj()">Add new
+            account</a>
+    </div>
+    <table class="table table-striped" style="width:100%">
+
+        <tr>
+            <td style="font-family:wsb">Project Name</td>
+            <td style="font-family:wsb">Phase</td>
+            <td style="font-family:wsb">Dept.</td>
+            <td style="font-family:wsb">Vertical</td>
+            <td style="font-family:wsb">Value</td>
+            <td style="font-family:wsb">Version</td>
+            <td style="font-family:wsb">Manager</td>
+            <td style="font-family:wsb">MD</td>
+            <!--<td style="font-family:wsb">Go-live</td>-->
+            <td style="font-family:wsb"></td>
+        </tr>
+
+        <tr ng-repeat="p in palist">
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty" href="#"
+                                        val="||p.name||"
+                                        field="pname" value="||p.name||" xeditablename>||p.name||</a></td>
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty"
+                                        data-type="select" href="#"
+                                        val="||p.phase||" field="phase" xeditablephase>||p.phase||</a></td>
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty"
+                                        data-type="select" href="#"
+                                        val="||p.dept||" field="parea" xeditabledept>||p.dept||</a></td>
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty"
+                                        data-type="select" href="#"
+                                        val="||p.smi||" field="smi" xeditablesmi>||p.smi||</a></td>
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty" href="#"
+                                        val="||p.value||"
+                                        field="value" xeditablevalue>||p.value||</a></td>
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty"
+                                        data-type="select" href="#"
+                                        val="||p.version||" field="mnversion" xeditableversion>||p.version||</a></td>
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty"
+                                        data-source="/getManagerNames"
+                                        data-type="select" href="#" val="||p.manager||" field="manager"
+                                        value="||p.manager||"
+                                        xeditablemanager><span ng-show="p.manager!=''">||p.manager||</span><span
+                    ng-show="p.manager==''">Select</span></a>
+            </td>
+
+            <td style="padding:12px"><a pid="||p.pid||" class="editable editable-click editable-empty"
+                                        data-source="/getMDNames"
+                                        data-type="select" href="#" val="||p.md||" field="md"
+                                        value="||p.md||"
+                                        xeditablemd><span ng-show="p.md!=''">||p.md||</span><span
+                    ng-show="p.md==''">Select</span></a>
+            </td>
+            <!--<td></td>-->
+            <td></td>
+
+        </tr>
+
+    </table>
 
 
-                    <i class="fa fa-circle-o" ng-show="f.status==3" style="font-size:14px;color:green;margin:10px"></i>
-
-                </td>
-                <td align="center">||f.icount||</td>
-                <td align="center">||f.mcount||</td>
-                <!--<td><i class="fa fa-times" style="color:red"></i></td>-->
-
-            </tr>
-        </table>
+</div>
 
 
+<div id="charts" class="app_form_tab_div" style="padding:0px;width:100%" align="left">
+    <br><br>
+
+    <!--<h1><i class="fa fa-wrench"></i><br>Under construction</h1>-->
 
 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+       google.load("visualization", "1", {packages:["corechart"]});
+    </script>
 
+
+ <div id="chart_div"  style="width:98%"></div>
+    <br><hr><br>
+ <div id="piechart_3d"  style="width:98%"></div>
+
+</div>
+
+
+<div id="users" class="app_form_tab_div" style="display:none">
+
+    <div align="right" style="margin-bottom:8px">
+        <a style="padding:4px;font-family:'Helvetica'" class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModal" >Add User</a>
     </div>
 
 
-    <div id="projects" class="app_form_tab_div" style="display:none">
+    <table class="table table-striped" style="width:100%">
+        <tr>
 
-        <div align="right" style="margin-bottom:8px">
-            <a style="" class="" ng-click="addProj()"><i class="fa fa-plus">Add new account</i></a>
+            <td style="font-family:'wsb'">User</td>
+            <td style="font-family:'wsb'">Role</td>
+            <td style="font-family:'wsb'">Email</td>
+            <td style="font-family:'wsb'">Accounts</td>
+
+        </tr>
+
+        <tr ng-repeat="u in ulist">
+            <td>||u.name||</td>
+            <td>||u.role||</td>
+            <td>||u.email||</td>
+            <td><span ng-repeat="p in u.projects track by $index">||p||<br></span></td>
+        </tr>
+    </table>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add User</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
-        <table class="table table-striped" style="width:100%">
-
-            <tr>
-                <td style="font-family:wsb">Project Name</td>
-                <td style="font-family:wsb">Phase</td>
-                <td style="font-family:wsb">Dept.</td>
-                <td style="font-family:wsb">Vertical</td>
-                <td style="font-family:wsb">Value</td>
-                <td style="font-family:wsb">Version</td>
-                <td style="font-family:wsb">Manager</td>
-            </tr>
-
-            <tr ng-repeat="p in palist">
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" href="#" val="||p.name||"
-                       field="pname" value="||p.name||" xeditablename>||p.name||</a></td>
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" data-type="select" href="#"
-                       val="||p.phase||" field="phase" xeditablephase>||p.phase||</a></td>
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" data-type="select" href="#"
-                       val="||p.dept||" field="parea" xeditabledept>||p.dept||</a></td>
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" data-type="select" href="#"
-                       val="||p.smi||" field="smi" xeditablesmi>||p.smi||</a></td>
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" href="#" val="||p.value||"
-                       field="value" xeditablevalue>||p.value||</a></td>
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" data-type="select" href="#"
-                       val="||p.version||" field="mnversion" xeditableversion>||p.version||</a></td>
-                <td><a pid="||p.pid||" class="editable editable-click editable-empty" data-source="/getManagerNames"
-                       data-type="select" href="#" val="||p.manager||" field="manager" value="||p.manager||"
-                       xeditablemanager><span ng-show="p.manager!=''">||p.manager||</span><span ng-show="p.manager==''">Select</span></a>
-                </td>
-
-            </tr>
-
-        </table>
-
-
     </div>
 
+</div>
 
-    <div id="charts" class="app_form_tab_div" style="display:none" align="center">
-<br><br>
-        <h1> <i class="fa fa-wrench"></i><br>Under construction</h1>
-
-    </div>
-
-    {% endblock %}
+{% endblock %}
